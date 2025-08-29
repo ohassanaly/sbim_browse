@@ -11,6 +11,10 @@ dependencies = [
     "requests>=2.32.5",
 ]
 
+[tool.uv]
+dev-dependencies = [
+    "ruff>=0.5.0",
+    ]
+
 [tool.ruff]
 line-length = 88
-target-version = "py313"
