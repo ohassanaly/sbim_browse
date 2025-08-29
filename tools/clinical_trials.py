@@ -16,11 +16,13 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s %(levelname)s %(name)s: %(message)s",
     handlers=[
-        logging.FileHandler(log_path, encoding="utf-8"),]
+        logging.FileHandler(log_path, encoding="utf-8"),
+    ],
 )
 logger = logging.getLogger(__name__)
 
-def request_study_id(study_id : str, api_server : str, data_dir : str) :
+
+def request_study_id(study_id: str, api_server: str, data_dir: str):
     """
     Based on a NCT Trial ID, Fetch a study JSON from ClinicalTrials.gov API sand save it to disk
 
@@ -28,22 +30,22 @@ def request_study_id(study_id : str, api_server : str, data_dir : str) :
         INFO on success, WARNING/ERROR on different failure modes.
     """
     url = f"{api_server}/studies/{study_id}"
-    try :
+    try:
         resp = requests.get(url, timeout=10)
         resp.raise_for_status()
     except RequestException as e:
         logger.error("HTTP error fetching %s: %s", url, e)
         return
-    
-    try : 
+
+    try:
         data = resp.json()
     except ValueError as e:
         logger.error("Invalid JSON for study %s: %s", study_id, e)
         return
-    
-    try :
+
+    try:
         out_path = f"{data_dir}/{study_id}.json"
-        with open(out_path, "w",  encoding="utf-8") as f:
+        with open(out_path, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=2, ensure_ascii=False)
             logger.info("Saved study %s to %s", study_id, out_path)
             return
@@ -55,5 +57,5 @@ def request_study_id(study_id : str, api_server : str, data_dir : str) :
 if __name__ == "__main__":
     api_server = "https://clinicaltrials.gov/api/v2"
     data_dir = "data"
-    study_id =  "NCT03540771"
+    study_id = "NCT03540771"
     request_study_id(study_id, api_server, data_dir)
