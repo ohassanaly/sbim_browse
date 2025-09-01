@@ -8,7 +8,12 @@ wheels/
 
 # Virtual environments
 .venv
+.env
 
 #local
 /data
 /logs
+
+#current developments
+/tools
+/agent

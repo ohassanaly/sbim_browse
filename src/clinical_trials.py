@@ -57,5 +57,5 @@ def request_study_id(study_id: str, api_server: str, data_dir: str):
 if __name__ == "__main__":
     api_server = "https://clinicaltrials.gov/api/v2"
     data_dir = "data"
-    study_id = "NCT03540771"
+    study_id = "NCT03473301"
     request_study_id(study_id, api_server, data_dir)
