@@ -9,7 +9,10 @@ dependencies = [
     "datetime>=5.5",
     "logging>=0.4.9.6",
     "openai-agents>=0.2.10",
+    "openpyxl>=3.1.5",
+    "pandas>=2.3.2",
     "requests>=2.32.5",
+    "tqdm>=4.67.1",
 ]
 
 [tool.uv]

@@ -5,24 +5,8 @@ import logging
 from datetime import datetime
 from requests.exceptions import RequestException
 
-run_stamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
-os.makedirs("logs", exist_ok=True)
-os.makedirs("data", exist_ok=True)
-
-log_path = f"logs/{run_stamp}_clinical_trials.log"
-
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s %(levelname)s %(name)s: %(message)s",
-    handlers=[
-        logging.FileHandler(log_path, encoding="utf-8"),
-    ],
-)
-logger = logging.getLogger(__name__)
-
-
-def request_study_id(study_id: str, api_server: str, data_dir: str):
+def request_study_id(study_id: str, api_server: str, data_dir: str, logger):
     """
     Based on a NCT Trial ID, Fetch a study JSON from ClinicalTrials.gov API sand save it to disk
 
@@ -55,7 +39,19 @@ def request_study_id(study_id: str, api_server: str, data_dir: str):
 
 
 if __name__ == "__main__":
+    run_stamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+
+    log_path = f"logs/{run_stamp}_clinical_trials.log"
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s %(levelname)s %(name)s: %(message)s",
+        handlers=[
+            logging.FileHandler(log_path, encoding="utf-8"),
+        ],
+    )
+    logger = logging.getLogger(__name__)
+
     api_server = "https://clinicaltrials.gov/api/v2"
     data_dir = "data"
-    study_id = "NCT03473301"
-    request_study_id(study_id, api_server, data_dir)
+    study_id = "NCT03455972"
+    request_study_id(study_id, api_server, data_dir, logger)
