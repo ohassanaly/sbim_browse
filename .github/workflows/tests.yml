@@ -19,8 +19,5 @@ jobs:
       - name: Install dependencies
         run: uv sync --dev
 
-      - name: Run ruff (lint + format check)
-        run: uv run ruff check .
-
-      - name: Run ruff format check (optional, skip if only linting)
-        run: uv run ruff format --check .
+      - name: Run ruff formatting #https://docs.astral.sh/ruff/formatter/#philosophy
+        run: uv run ruff format .
